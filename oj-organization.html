@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>The "OJ" Organization: Updates</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#fffaf0;--ink:#2a1a05;--muted:#6b5a43;--orange:#ff8a00;--deep:#e25a00;--leaf:#1f6b3a;--card:#ffffff;--line:#f0dcb8;--hero-ink:#2a1a05;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#1b1206;--ink:#fff1d8;--muted:#c9b48f;--card:#271a0a;--line:#4a3615;--leaf:#6fd08c}}
+:root[data-theme="dark"]{--bg:#1b1206;--ink:#fff1d8;--muted:#c9b48f;--card:#271a0a;--line:#4a3615;--leaf:#6fd08c}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Bricolage Grotesque",system-ui,-apple-system,"Segoe UI",sans-serif;line-height:1.55}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--leaf);outline-offset:3px}
+.hero{background:var(--orange);color:var(--hero-ink);padding:clamp(2rem,6vw,4rem) 1.25rem 0;overflow:hidden}
+.wrap{max-width:62rem;margin:0 auto}
+.nav{display:flex;justify-content:flex-end;flex-wrap:wrap;gap:.5rem;font-weight:600;font-size:.95rem}
+.nav a,.pill-label{text-decoration:none;padding:.45rem 1.1rem;border:2px solid var(--hero-ink);border-radius:99px}
+.nav a:hover{background:rgba(42,26,5,.12)}
+.nav a.solid{background:var(--hero-ink);color:#fff3dc}
+.nav a.solid:hover{background:#4a2f0c}
+.pill-label{margin-right:auto;border-color:transparent}
+.big{font-size:clamp(3rem,12vw,8.5rem);font-weight:800;line-height:.9;letter-spacing:-.04em;margin:2.5rem 0 1.5rem}
+.big span{display:inline-block;transform-origin:50% 100%;animation:pop .9s cubic-bezier(.2,1.4,.4,1) both}
+.big span:last-child{animation-delay:.12s}
+@keyframes pop{from{transform:translateY(40%) scale(.85);opacity:0}}
+@media (prefers-reduced-motion:reduce){.big span{animation:none}}
+.tag{background:var(--bg);margin:0 -1.25rem;padding:1.25rem;border-top-left-radius:2rem;border-top-right-radius:2rem}
+.tag p{margin:0 auto;max-width:62rem;font-size:1.15rem;font-weight:600}
+main{padding:2rem 1.25rem 4rem}
+.lead{display:grid;gap:1.25rem;grid-template-columns:1fr;margin-bottom:3rem}
+
+.feature{background:var(--leaf);color:#fff;border-radius:1.5rem;padding:1.75rem}
+.feature h2{font-size:clamp(1.6rem,4vw,2.4rem);line-height:1.1;margin:.4rem 0 .8rem}
+.feature p{margin:0;max-width:40ch}
+.stats{border:2px solid var(--ink);border-radius:.5rem;padding:1.5rem;display:flex;flex-direction:column;justify-content:center;gap:1rem}
+.stats b{font-size:2.4rem;line-height:1;color:var(--deep)}
+.stats div{display:flex;align-items:baseline;gap:.75rem}
+h2.sec{font-size:1.9rem;margin:0 0 1rem}
+.filters{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:1.25rem}
+.filters button{font:inherit;font-weight:600;border:2px solid var(--ink);background:transparent;color:var(--ink);padding:.4rem 1rem;border-radius:99px;cursor:pointer}
+.filters button[aria-pressed="true"]{background:var(--orange);border-color:var(--orange);color:#2a1a05}
+.feed{list-style:none;margin:0;padding:0}
+.feed li{display:grid;grid-template-columns:5.5rem 1fr;gap:1rem;padding:1.25rem 0;border-top:1px solid var(--line)}
+.feed time{font-weight:800;color:var(--deep)}
+.feed h3{margin:0 0 .25rem;font-size:1.25rem}
+.feed p{margin:0;color:var(--muted);max-width:60ch}
+.kind{font-size:.85rem;font-weight:600;color:var(--leaf)}
+.sub{margin-top:3rem;background:var(--card);border:2px solid var(--orange);border-radius:1.25rem;padding:1.5rem}
+.sub h2{margin:0 0 .5rem}
+.sub input{font:inherit;padding:.6rem .9rem;border:2px solid var(--ink);border-radius:.5rem;background:var(--bg);color:var(--ink);min-width:0;width:min(100%,20rem)}
+.sub button{font:inherit;font-weight:800;padding:.6rem 1.2rem;border:0;border-radius:.5rem;background:var(--orange);color:#2a1a05;cursor:pointer}
+#msg{margin:.75rem 0 0;font-weight:600;color:var(--leaf)}
+footer{text-align:center;color:var(--muted);padding:2rem 1rem}
+dialog{border:2px solid var(--orange);border-radius:1rem;background:var(--card);color:var(--ink);font-family:inherit;padding:1.5rem}dialog::backdrop{background:rgba(0,0,0,.5)}dialog input{font:inherit;padding:.6rem;margin:.5rem 0;border:2px solid var(--ink);border-radius:.5rem;background:var(--bg);color:var(--ink)}dialog button,.sub button,#a-add{cursor:pointer}dialog button{font:inherit;font-weight:800;padding:.5rem 1rem;border:0;border-radius:.5rem;background:var(--orange);color:#2a1a05}#lmsg{color:#c0392b;font-weight:600;min-height:1.2em}[hidden]{display:none!important}</style>
+</head>
+<body>
+<header class="hero">
+  <div class="wrap">
+    <nav class="nav" aria-label="Main"><a href="#updates">Updates</a><a href="#join">Subscribe</a><a href="#" id="edit-link" class="solid">Be an Editor</a></nav>
+    <h1 class="big" aria-label="OJ/Orange Juice"><span>OJ</span><span>/Orange Juice</span></h1>
+  </div>
+  <div class="tag"><p>Fresh updates from The "OJ" Organization, squeezed daily.</p></div>
+</header>
+<div id="publicView"><main class="wrap">
+  <section class="lead" aria-label="Top story">
+    <aside class="stats" aria-label="Organization"><div><b id="mcount">0</b><span>Members</span></div></aside>
+  </section>
+
+  <section id="updates">
+    <h2 class="sec">Latest updates</h2>
+    <div class="filters" role="group" aria-label="Filter updates">
+      <button aria-pressed="true" data-f="all">All</button>
+      <button aria-pressed="false" data-f="News">News</button>
+      <button aria-pressed="false" data-f="Members">Members</button>
+    </div>
+    <ul class="feed" id="feed"></ul>
+  </section>
+
+  <section class="sub" id="join">
+    <h2>Get updates in your inbox</h2>
+    <p>One short email when something new is squeezed.</p>
+    <input id="em" type="email" placeholder="you@example.com" aria-label="Email address">
+    <button id="go" type="button">Subscribe</button>
+    <p id="msg" role="status"></p>
+  </section>
+</main>
+<footer>© The "OJ" Organization. Sample updates shown; replace with your own news.</footer></div>
+<dialog id="login"><form method="dialog" id="lf"><h2>Editor sign in</h2><label for="pw">Editor password</label><br>
+<input id="pw" type="password" autocomplete="off"><p id="lmsg" role="alert"></p>
+<button type="submit" id="lgo">Sign in</button> <button type="button" id="lcancel">Cancel</button></form></dialog>
+<section id="adminView" class="wrap" hidden style="padding:2rem 1.25rem 4rem">
+<nav class="nav"><span class="pill-label">Editor</span><a href="#" id="exit" class="solid">Back to site</a></nav>
+<h2 class="sec" style="margin-top:2rem">Add an update</h2>
+<div class="sub" style="margin-top:0;display:grid;gap:.75rem">
+<input id="a-title" placeholder="Title" aria-label="Title" style="width:100%">
+<input id="a-body" placeholder="Short description" aria-label="Description" style="width:100%">
+<div style="display:flex;gap:.75rem;flex-wrap:wrap"><input id="a-date" placeholder="Date, e.g. Dec 3" aria-label="Date"><select id="a-kind" aria-label="Category" style="font:inherit;padding:.6rem;border:2px solid var(--ink);border-radius:.5rem;background:var(--bg);color:var(--ink)"><option>News</option><option>Members</option></select></div>
+<div><button id="a-add" type="button">Add update</button></div><p id="a-msg" role="status" style="margin:0;font-weight:600;color:var(--leaf)"></p></div>
+<h2 class="sec" style="margin-top:2rem">Current updates</h2><ul class="feed" id="a-list"></ul>
+<p style="color:var(--muted)">Changes save in this browser only.</p></section>
+<script>
+const D=[];
+let U=D.slice(),F='all',DOC=null;
+try{const r=localStorage.getItem('oj-updates');if(r)U=JSON.parse(r)}catch(e){}
+const save=()=>{
+  if(DOC){DOC.set({items:U}).catch(()=>{const m=document.getElementById('a-msg');if(m)m.textContent='Could not save for everyone. You may need edit access to this page.'})}
+  else{try{localStorage.setItem('oj-updates',JSON.stringify(U))}catch(e){}}
+};
+const $=id=>document.getElementById(id);
+const esc=x=>String(x).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const row=(u,i,adm)=>`<li${u.t?'':' style="grid-template-columns:1fr"'}>${u.t?`<time>${esc(u.t)}</time>`:''}<div><span class="kind">${esc(u.k)}</span><h3>${esc(u.h)}</h3>${u.p?`<p>${esc(u.p)}</p>`:''}${adm?`<button class="del" data-i="${i}" style="margin-top:.5rem;font:inherit;cursor:pointer">Remove</button>`:''}</div></li>`;
+function render(){
+  $('mcount').textContent=U.filter(u=>u.k==='Members').length;
+  const v=U.map((u,i)=>[u,i]).filter(([u])=>F==='all'||u.k===F);
+  $('feed').innerHTML=v.length?v.map(([u,i])=>row(u,i,false)).join(''):'<li><p>No updates yet. Check back soon.</p></li>';
+  $('a-list').innerHTML=U.length?U.map((u,i)=>row(u,i,true)).join(''):'<li><p>No updates yet. Add one above.</p></li>';
+}
+const btns=document.querySelectorAll('.filters button');
+btns.forEach(b=>b.addEventListener('click',()=>{btns.forEach(x=>x.setAttribute('aria-pressed',x===b));F=b.dataset.f;render()}));
+render();
+(async()=>{try{
+  const db=window.claude&&await claude.use('db');if(!db)return;
+  DOC=db.doc('site/updates');
+  DOC.onSnapshot(sn=>{const d=sn.exists&&sn.data();U=d&&Array.isArray(d.items)?d.items:[];render()},()=>{DOC=null});
+}catch(e){DOC=null}})();
+$('edit-link').addEventListener('click',e=>{e.preventDefault();$('pw').value='';$('lmsg').textContent='';$('login').showModal();$('pw').focus()});
+$('lcancel').addEventListener('click',()=>$('login').close());
+$('lf').addEventListener('submit',e=>{
+  if($('pw').value.trim()==='OJAOA2542'){$('publicView').hidden=true;$('adminView').hidden=false;window.scrollTo(0,0)}
+  else{e.preventDefault();$('lmsg').textContent='Incorrect password. Try again.'}
+});
+$('exit').addEventListener('click',e=>{e.preventDefault();$('adminView').hidden=true;$('publicView').hidden=false;render()});
+const kindChange=()=>{const m=$('a-kind').value==='Members';
+  $('a-body').hidden=m;$('a-date').hidden=m;
+  $('a-title').placeholder=m?'Member name':'Title';$('a-title').setAttribute('aria-label',m?'Member name':'Title');};
+$('a-kind').addEventListener('change',kindChange);
+$('a-add').addEventListener('click',()=>{
+  const m=$('a-kind').value==='Members';
+  const h=$('a-title').value.trim(),p=m?'':$('a-body').value.trim(),t=m?'':$('a-date').value.trim();
+  if(!h||(!m&&(!p||!t))){$('a-msg').textContent=m?'Enter the member name.':'Fill in the title, description and date.';return}
+  U.unshift({t,k:$('a-kind').value,h,p});save();render();
+  ['a-title','a-body','a-date'].forEach(x=>$(x).value='');$('a-msg').textContent=m?'Member added.':'Update added.';
+});
+$('a-list').addEventListener('click',e=>{const b=e.target.closest('.del');if(!b)return;U.splice(+b.dataset.i,1);save();render()});
+document.getElementById('go').addEventListener('click',()=>{
+  const v=document.getElementById('em').value.trim(),m=document.getElementById('msg');
+  m.textContent=/^\S+@\S+\.\S+$/.test(v)?'Subscribed. Watch for the next update.':'Enter a valid email address to subscribe.';
+});
+</script>
+</body>
+</html>
