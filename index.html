@@ -104,11 +104,15 @@ dialog{border:2px solid var(--orange);border-radius:1rem;background:var(--card);
 <h2 class="sec" style="margin-top:2rem">Current updates</h2><ul class="feed" id="a-list"></ul>
 <p style="color:var(--muted)">Changes save in this browser only.</p></section>
 <script>
+// Paste your Firebase Realtime Database URL between the quotes, e.g. https://your-project-default-rtdb.firebaseio.com
+const FB='';
+let saving=false;
 const D=[];
 let U=D.slice(),F='all',DOC=null;
 try{const r=localStorage.getItem('oj-updates');if(r)U=JSON.parse(r)}catch(e){}
 const save=()=>{
   if(DOC){DOC.set({items:U}).catch(()=>{const m=document.getElementById('a-msg');if(m)m.textContent='Could not save for everyone. You may need edit access to this page.'})}
+  else if(FB){saving=true;fetch(FB.replace(/\/$/,'')+'/updates.json',{method:'PUT',body:JSON.stringify(U)}).catch(()=>{const m=document.getElementById('a-msg');if(m)m.textContent='Could not save. Check the database URL and rules.'}).finally(()=>{saving=false})}
   else{try{localStorage.setItem('oj-updates',JSON.stringify(U))}catch(e){}}
 };
 const $=id=>document.getElementById(id);
@@ -123,8 +127,12 @@ function render(){
 const btns=document.querySelectorAll('.filters button');
 btns.forEach(b=>b.addEventListener('click',()=>{btns.forEach(x=>x.setAttribute('aria-pressed',x===b));F=b.dataset.f;render()}));
 render();
+function startRest(){
+  const pull=async()=>{if(saving)return;try{const r=await fetch(FB.replace(/\/$/,'')+'/updates.json');const d=await r.json();const a=d?Object.values(d):[];if(JSON.stringify(a)!==JSON.stringify(U)){U=a;render()}}catch(e){}};
+  pull();setInterval(pull,10000);
+}
 (async()=>{try{
-  const db=window.claude&&await claude.use('db');if(!db)return;
+  const db=window.claude&&await claude.use('db');if(!db){if(FB)startRest();return}
   DOC=db.doc('site/updates');
   DOC.onSnapshot(sn=>{const d=sn.exists&&sn.data();U=d&&Array.isArray(d.items)?d.items:[];render()},()=>{DOC=null});
 }catch(e){DOC=null}})();
